@@ -12,7 +12,7 @@ phases:
       - npx lerna run --stream --scope @cityofboston/deploy-tools --include-filtered-dependencies prepare
   build:
     commands:
-      - deploy/codepipeline-deploy.sh
+      - ./deploy/codepipeline-deploy.sh
 artifacts:
   files:
   discard-paths: yes
