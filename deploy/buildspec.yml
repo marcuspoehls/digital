@@ -1,0 +1,22 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - apt-get update
+      - apt-get install -y jq
+      - npm install -g yarn@`jq -r .engines.yarn package.json`
+  pre_build:
+    commands:
+      - yarn install --frozen-lockfile --ignore-scripts
+      - npx lerna run --stream --scope @cityofboston/deploy-tools --include-filtered-dependencies prepare
+  build:
+    commands:
+      - deploy/codepipeline-deploy.sh
+artifacts:
+  files:
+  discard-paths: yes
+  base-directory: location
+cache:
+  paths:
+    - 'node_modules/**/*'
