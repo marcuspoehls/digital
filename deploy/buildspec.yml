@@ -8,13 +8,16 @@ phases:
       - yarn install --frozen-lockfile --ignore-scripts
   pre_build:
     commands:
+      - env
       - npx lerna run --stream --scope @cityofboston/deploy-tools --include-filtered-dependencies prepare
+      # CodeBuild does not preserve permissions
       - chmod a+x ./deploy/*.sh
   build:
     commands:
       - ./deploy/codepipeline-deploy.sh
 artifacts:
   files:
+    - imagedefinitions.json
   discard-paths: yes
   base-directory: location
 cache:

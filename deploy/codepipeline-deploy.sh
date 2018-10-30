@@ -12,3 +12,5 @@ export SERVICE_NAME="${BASH_REMATCH[2]}"
 echo "DEPLOY" $SERVICE_NAME
 
 # npx lerna run --stream --scope $SERVICE_NAME codepipeline-deploy
+
+echo '[{"name":"service","imageUri":"latest"}]' > imagedefinitions.json
