@@ -5,15 +5,13 @@ phases:
     commands:
       - npm config set scripts-prepend-node-path true
       - npm install -g yarn
-      - yarn cache dir
+      - yarn install --frozen-lockfile --ignore-scripts
   pre_build:
     commands:
-      - yarn install --frozen-lockfile --ignore-scripts
       - npx lerna run --stream --scope @cityofboston/deploy-tools --include-filtered-dependencies prepare
+      - chmod a+x ./deploy/*.sh
   build:
     commands:
-      - ls -l deploy
-      - ls -l /bin
       - ./deploy/codepipeline-deploy.sh
 artifacts:
   files:
