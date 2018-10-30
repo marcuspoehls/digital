@@ -18,8 +18,6 @@ phases:
 artifacts:
   files:
     - imagedefinitions.json
-  discard-paths: yes
-  base-directory: location
 cache:
   paths:
     - '/usr/local/share/.cache/yarn/v3/**/*'
