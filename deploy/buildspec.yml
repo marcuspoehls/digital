@@ -3,15 +3,17 @@ version: 0.2
 phases:
   install:
     commands:
-      - apt-get update
-      - apt-get install -y jq
-      - npm install -g yarn@`jq -r .engines.yarn package.json`
+      - npm config set scripts-prepend-node-path true
+      - npm install -g yarn
+      - yarn cache dir
   pre_build:
     commands:
       - yarn install --frozen-lockfile --ignore-scripts
       - npx lerna run --stream --scope @cityofboston/deploy-tools --include-filtered-dependencies prepare
   build:
     commands:
+      - ls -l deploy
+      - ls -l /bin
       - ./deploy/codepipeline-deploy.sh
 artifacts:
   files:
@@ -19,4 +21,5 @@ artifacts:
   base-directory: location
 cache:
   paths:
+    - '/usr/local/share/.cache/yarn/v3/**/*'
     - 'node_modules/**/*'
