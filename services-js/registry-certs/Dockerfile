@@ -33,7 +33,6 @@ ADD . /app/
 RUN npx lerna run --stream --include-filtered-dependencies --scope $WORKSPACE prepare 
 RUN npx lerna run --stream --include-filtered-dependencies --scope $WORKSPACE prepare-deploy 
 
-
 EXPOSE 3000
 
 ENV NODE_ENV production

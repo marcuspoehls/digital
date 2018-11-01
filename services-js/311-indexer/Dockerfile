@@ -38,5 +38,7 @@ ENV NODE_ENV production
 
 WORKDIR /app/services-js/$WORKSPACE
 
+# Workaround for codebuild throwing away file permissions
+RUN chmod a+x /app/scripts/service-entrypoint.sh
 ENTRYPOINT ["/app/scripts/service-entrypoint.sh"]
 CMD ["yarn", "start"]

@@ -10,15 +10,13 @@ cache: yarn
 branches:
   only:
   - develop
-  - "/^production\\//"
-  - "/^staging\\//"
 before_install:
 - npm install -g yarn@`jq -r .engines.yarn package.json`
 stages:
 - name: test
   if: branch !~ /^staging\//
 - name: deploy
-  if: branch =~ /^(production|staging)\//  AND type IN (push)
+  if: branch == develop AND type IN (push)
 jobs:
   include:
   - stage: test
@@ -44,7 +42,7 @@ jobs:
     deploy:
       provider: script
       skip_cleanup: true
-      script: deploy/travis-deploy.sh
+      script: deploy/update-production-branches.sh
       on:
         all_branches: true
 notifications:
