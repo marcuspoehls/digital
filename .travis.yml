@@ -6,17 +6,20 @@ addons:
 language: node_js
 env:
 - TZ=America/New_York
+git:
+  depth: 500
 cache: yarn
 branches:
   only:
   - develop
+  - deploy-test
 before_install:
 - npm install -g yarn@`jq -r .engines.yarn package.json`
 stages:
 - name: test
-  if: branch !~ /^staging\//
+  if: branch !~ /^staging\// AND branch != deploy-test
 - name: deploy
-  if: branch == develop AND type IN (push)
+  if: branch == deploy-test AND type IN (push)
 jobs:
   include:
   - stage: test
@@ -35,9 +38,10 @@ jobs:
       travis/screenshots/$TRAVIS_BUILD_ID/$TRAVIS_JOB_ID
   - stage: deploy
     install:
-    - yarn install --frozen-lockfile --ignore-scripts
-    - npx lerna run --stream --scope @cityofboston/deploy-tools --include-filtered-dependencies
-      prepare
+      - env
+    # - yarn install --frozen-lockfile --ignore-scripts
+    # - npx lerna run --stream --scope @cityofboston/deploy-tools --include-filtered-dependencies
+    #   prepare
     script: skip
     deploy:
       provider: script
