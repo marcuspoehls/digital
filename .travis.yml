@@ -12,6 +12,7 @@ cache: yarn
 branches:
   only:
   - develop
+  - travis-test
 before_install:
 - npm install -g yarn@`jq -r .engines.yarn package.json`
 stages:
