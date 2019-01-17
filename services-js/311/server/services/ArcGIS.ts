@@ -196,8 +196,7 @@ function isExactAddress(candidate: FindAddressCandidate): boolean {
 function isAddressUnsearchable(candidate: FindAddressCandidate): boolean {
   return (
     candidate.attributes.Loc_name === 'Intersection' ||
-    candidate.attributes.Loc_name === 'Seg_Alternate' ||
-    candidate.attributes.Loc_name === 'Landmark_Alter'
+    candidate.attributes.Loc_name === 'Seg_Alternate'
   );
 }
 

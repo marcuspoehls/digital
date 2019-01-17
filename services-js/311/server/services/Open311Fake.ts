@@ -35,6 +35,7 @@ export default class Open311Fake implements Required<Open311> {
   ): Promise<DetailedServiceRequest> {
     const service = await this.service(args.service_code);
 
+    console.log(args);
     const out: DetailedServiceRequest = {
       id: '200123456',
       service_request_id: '200123456',

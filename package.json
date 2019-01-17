@@ -11,7 +11,8 @@
     "projects": [
       "<rootDir>/modules-js/*",
       "<rootDir>/services-js/*"
-    ]
+    ],
+    "collectCoverage": true
   },
   "workspaces": {
     "packages": [
